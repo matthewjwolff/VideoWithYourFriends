@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <title>VideoWithYourFriends></title>
+        <script src="node_modules/socket.io-client/dist/socket.io.js"></script>
+        <script src="https://www.youtube.com/iframe_api"></script>
+        <script>
+         var socket = io("http://localhost:8080/")
+         var player
+         function onYouTubeIframeAPIReady() {
+             player = new YT.Player('player', {
+                 videoId: "L_jWHffIx5E"
+             })
+         }
+        </script>
+    </head>
+    <body>
+        <h1>Video With Your Friends</h1>
+        <div id="player" ></div>
+    </body>
+</html>

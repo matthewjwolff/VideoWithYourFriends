@@ -1,0 +1,22 @@
+{
+  "name": "videowithyourfriends",
+  "version": "1.0.0",
+  "description": "Server to sync videos",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matthewjwolff/VideoWithYourFriends.git"
+  },
+  "author": "Matthew Wolff",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/matthewjwolff/VideoWithYourFriends/issues"
+  },
+  "homepage": "https://github.com/matthewjwolff/VideoWithYourFriends#readme",
+  "dependencies": {
+    "socket.io": "^1.7.3"
+  }
+}
