@@ -3,18 +3,66 @@
         <title>VideoWithYourFriends></title>
         <script src="node_modules/socket.io-client/dist/socket.io.js"></script>
         <script src="https://www.youtube.com/iframe_api"></script>
+        <script src="node_modules/mustache/mustache.min.js"></script>
         <script>
          var socket = io("http://localhost:8080/")
+
+         socket.on('list', (packet) => { console.log("list: "+packet); newList(packet); })
+         socket.on('cue', (packet) => { console.log("cue: "+packet); cueNextVideo(packet); })
+         socket.on('play', (packet) => { console.log("play: "+packet); playVideo(packet); })
+         socket.on('debug', (message) => {console.log(message)} )
          var player
          function onYouTubeIframeAPIReady() {
              player = new YT.Player('player', {
                  videoId: "L_jWHffIx5E"
              })
          }
+
+         var model = {
+             videos: [  ]
+         }
+
+         function newList(list) {
+             model.videos = list
+             renderList()
+         }
+
+         function addToList(url) {
+             socket.emit("add", url)
+         }
+
+         function cueNextVideo(videoId) {
+             // load the video
+             player.cueVideoById(model.videos[0])
+             // load the buffer
+             player.seekTo(0, true)
+             // pause the video
+             player.pauseVideo()
+             // tell the server we're ready
+             socket.emit("ready")
+         }
+
+         function playVideo(videoId) {
+             player.playVideo()
+         }
+
+         function renderList() {
+             document.getElementById("videos").innerHTML = Mustache.render(document.getElementsByTagName("template")[0].innerHTML, model )
+         }
         </script>
+        <template>
+            {{#videos}}
+            <li>{{id}}</li>
+            {{/videos}}
+        </template>
     </head>
     <body>
         <h1>Video With Your Friends</h1>
+        <p>Hey! You need to disable 
+            <code>chrome://flags/#disable-gesture-requirement-for-media-playback</code> 
+            for background play to work
+        </p>
         <div id="player" ></div>
+        <ul id="videos"></ul>
     </body>
 </html>

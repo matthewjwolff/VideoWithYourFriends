@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/matthewjwolff/VideoWithYourFriends#readme",
   "dependencies": {
+    "mustache": "^2.3.0",
     "socket.io": "^1.7.3"
   }
 }
